@@ -16,7 +16,8 @@ proc readInfo(filename = "/proc/net/dev") : Table[string, netItem]=
         let parts = arr[1].splitWhitespace()
         if len(parts)!=16:
             continue;
-        netItems[arr[0]]=netItem(name:arr[0],recv_bytes:parts[0].parseInt,trans_bytes:parts[8].parseInt)
+        let name = arr[0].strip()
+        netItems[name]=netItem(name:name,recv_bytes:parts[0].parseInt,trans_bytes:parts[8].parseInt)
     return netItems;
 
 proc main() = 
