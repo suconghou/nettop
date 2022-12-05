@@ -209,7 +209,7 @@ int main()
             sprintf(str_recv, "%-11s %-11s %-11s", total_recv_mb, recv_avg_speed_kb, recv_speed_kb);
             sprintf(str_trans, "%-11s %-11s %-11s", total_trans_mb, trans_avg_speed_kb, trans_speed_kb);
             char name_pad[1024];
-            sprintf(name_pad, "%*s%s", maxLen - (int)strlen(temp->name), "", temp->name);
+            sprintf(name_pad, "%s%*s", temp->name, maxLen - (int)strlen(temp->name), "");
             printf("\e[1;34m%s\e[00m  接收: \e[1;32m%s\e[00m 发送: \e[1;31m%s\e[00m\n", name_pad, str_recv, str_trans);
             setItem(&last_items, temp->name, temp->recv_bytes, temp->trans_bytes);
             temp = temp->next;

@@ -75,7 +75,7 @@ proc main() =
 
             let str_recv = fmt"{total_recv_mb:<11} {recv_avg_speed_kb:<11} {recv_speed_kb:<11}"
             let str_trans = fmt"{total_trans_mb:<11} {trans_avg_speed_kb:<11} {trans_speed_kb:<11}"
-            let name_pad = name.align(maxLen)
+            let name_pad = name.alignLeft(maxLen)
             echo &"\e[1;34m{name_pad}\e[00m  接收: \e[1;32m{str_recv}\e[00m 发送: \e[1;31m{str_trans}\e[00m"
 
         last_clock = clock_now
