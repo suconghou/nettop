@@ -27,6 +27,7 @@ proc main() =
     var init_clock:DateTime = now();
     var last_clock:DateTime = init_clock;
     var maxLen :int = 0;
+    var empty = netItem();
 
     while true:
         let clock_now = now()
@@ -39,8 +40,8 @@ proc main() =
                     maxLen = ifname.len
         write(stdout,"\ec")
         for name,item in netItemsCurrent:
-            let lastItem = netItemsLast.getOrDefault(name,netItem())
-            let initItem = netItemsInit.getOrDefault(name,netItem())
+            let lastItem = netItemsLast.getOrDefault(name,empty)
+            let initItem = netItemsInit.getOrDefault(name,empty)
             var total_recv  :float
             var total_trans  :float
             var recv:float
