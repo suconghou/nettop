@@ -30,3 +30,13 @@ nim --mm:regions -d:release --passC:-flto --passL:-flto --passL:-s --passL:-stat
 61.7K
 
 ```
+
+
+### c 语言版本
+
+gcc -static-libstdc++ -static-libgcc --static -Wl,-Bstatic,--gc-sections -Os -ffunction-sections -fdata-sections main.c -o nettop
+
+
+
+
+
