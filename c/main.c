@@ -59,6 +59,8 @@ int setItem(netItem *items, char *name, long recv_bytes, long trans_bytes)
             // 找到则更新
             temp->recv_bytes = node->recv_bytes;
             temp->trans_bytes = node->trans_bytes;
+            free(node->name);
+            free(node);
             return 2;
         }
         prev = temp;
