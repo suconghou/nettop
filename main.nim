@@ -66,12 +66,13 @@ proc main() =
                 recv_avg_speed = total_recv/tt
                 trans_avg_speed = total_trans/tt
 
-            let total_recv_mb = fmt"{total_recv/1024:.2f}MB"
-            let recv_avg_speed_kb = fmt"{recv_avg_speed:.1f}KB/S"
-            let recv_speed_kb = fmt"{recv_speed:.1f}KB/S"
-            let total_trans_mb = fmt"{total_trans/1024:.2f}MB"
-            let trans_avg_speed_kb = fmt"{trans_avg_speed:.1f}KB/S"
-            let trans_speed_kb = fmt"{trans_speed:.1f}KB/S"
+
+            let total_recv_mb = if total_recv > 1048576 : fmt"{total_recv/1024/1024:.2f}GB" else: fmt"{total_recv/1024:.2f}MB"
+            let recv_avg_speed_kb = if recv_avg_speed > 1024: fmt"{recv_avg_speed/1024:.1f}MB/S" else: fmt"{recv_avg_speed:.1f}KB/S"
+            let recv_speed_kb = if recv_speed > 1024: fmt"{recv_speed/1024:.1f}MB/S" else: fmt"{recv_speed:.1f}KB/S"
+            let total_trans_mb = if total_trans > 1048576: fmt"{total_trans/1024/1024:.2f}GB" else: fmt"{total_trans/1024:.2f}MB"
+            let trans_avg_speed_kb = if trans_avg_speed > 1024: fmt"{trans_avg_speed/1024:.1f}MB/S" else: fmt"{trans_avg_speed:.1f}KB/S"
+            let trans_speed_kb = if trans_speed > 1024: fmt"{trans_speed/1024:.1f}MB/S" else: fmt"{trans_speed:.1f}KB/S"
 
             let str_recv = fmt"{total_recv_mb:<11} {recv_avg_speed_kb:<11} {recv_speed_kb:<11}"
             let str_trans = fmt"{total_trans_mb:<11} {trans_avg_speed_kb:<11} {trans_speed_kb:<11}"

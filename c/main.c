@@ -197,13 +197,54 @@ int main()
             char trans_avg_speed_kb[1024];
             char trans_speed_kb[1024];
 
-            sprintf(total_recv_mb, "%.2fMB", total_recv / 1024);
-            sprintf(recv_avg_speed_kb, "%.1fKB/S", recv_avg_speed);
-            sprintf(recv_speed_kb, "%.1fKB/S", recv_speed);
-            sprintf(total_trans_mb, "%.2fMB", total_trans / 1024);
-            sprintf(trans_avg_speed_kb, "%.1fKB/S", trans_avg_speed);
-            sprintf(trans_speed_kb, "%.1fKB/S", trans_speed);
-
+            if (total_recv > 1048576)
+            {
+                sprintf(total_recv_mb, "%.2fGB", total_recv / 1024 / 1024);
+            }
+            else
+            {
+                sprintf(total_recv_mb, "%.2fMB", total_recv / 1024);
+            }
+            if (recv_avg_speed > 1024)
+            {
+                sprintf(recv_avg_speed_kb, "%.1fMB/S", recv_avg_speed / 1024);
+            }
+            else
+            {
+                sprintf(recv_avg_speed_kb, "%.1fKB/S", recv_avg_speed);
+            }
+            if (recv_speed > 1024)
+            {
+                sprintf(recv_speed_kb, "%.1fMB/S", recv_speed / 1024);
+            }
+            else
+            {
+                sprintf(recv_speed_kb, "%.1fKB/S", recv_speed);
+            }
+            if (total_trans > 1048576)
+            {
+                sprintf(total_trans_mb, "%.2fGB", total_trans / 1024 / 1024);
+            }
+            else
+            {
+                sprintf(total_trans_mb, "%.2fMB", total_trans / 1024);
+            }
+            if (trans_avg_speed > 1024)
+            {
+                sprintf(trans_avg_speed_kb, "%.1fMB/S", trans_avg_speed / 1024);
+            }
+            else
+            {
+                sprintf(trans_avg_speed_kb, "%.1fKB/S", trans_avg_speed);
+            }
+            if (trans_speed > 1024)
+            {
+                sprintf(trans_speed_kb, "%.1fMB/S", trans_speed / 1024);
+            }
+            else
+            {
+                sprintf(trans_speed_kb, "%.1fKB/S", trans_speed);
+            }
             char str_recv[1024];
             char str_trans[1024];
             sprintf(str_recv, "%-11s %-11s %-11s", total_recv_mb, recv_avg_speed_kb, recv_speed_kb);
