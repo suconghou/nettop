@@ -148,12 +148,12 @@ int main()
 
     struct timeval tv;
     gettimeofday(&tv, NULL);
-    long init_clock = tv.tv_sec * 1000 + tv.tv_usec / 1000;
-    long last_clock = init_clock;
+    unsigned long init_clock = tv.tv_sec * 1000 + tv.tv_usec / 1000;
+    unsigned long last_clock = init_clock;
     while (1)
     {
         gettimeofday(&tv, NULL);
-        long clock_now = tv.tv_sec * 1000 + tv.tv_usec / 1000;
+        unsigned long clock_now = tv.tv_sec * 1000 + tv.tv_usec / 1000;
         float t = ((float)(clock_now - last_clock)) / 1000;
         float tt = ((float)(clock_now - init_clock)) / 1000;
         if (readInfo() < 0)
@@ -168,14 +168,14 @@ int main()
             // 遍历链表
             netItem *lastItem = getItem(&last_items, temp->name);
             netItem *initItem = getItem(&init_items, temp->name);
-            float total_recv,
-                total_trans,
-                recv,
-                trans,
-                recv_speed,
-                trans_speed,
-                recv_avg_speed,
-                trans_avg_speed;
+            float total_recv = 0,
+                  total_trans = 0,
+                  recv = 0,
+                  trans = 0,
+                  recv_speed = 0,
+                  trans_speed = 0,
+                  recv_avg_speed = 0,
+                  trans_avg_speed = 0;
             if (!(lastItem == NULL || initItem == NULL))
             {
                 total_recv = (temp->recv_bytes - initItem->recv_bytes) / 1024;
@@ -190,65 +190,65 @@ int main()
                 recv_avg_speed = total_recv / tt;
                 trans_avg_speed = total_trans / tt;
             }
-            char total_recv_mb[1024];
-            char recv_avg_speed_kb[1024];
-            char recv_speed_kb[1024];
-            char total_trans_mb[1024];
-            char trans_avg_speed_kb[1024];
-            char trans_speed_kb[1024];
+            char total_recv_s[1024];
+            char recv_avg_speed_s[1024];
+            char recv_speed_s[1024];
+            char total_trans_s[1024];
+            char trans_avg_speed_s[1024];
+            char trans_speed_s[1024];
 
             if (total_recv > 1048576)
             {
-                sprintf(total_recv_mb, "%.2fGB", total_recv / 1024 / 1024);
+                sprintf(total_recv_s, "%.2fGB", total_recv / 1024 / 1024);
             }
             else
             {
-                sprintf(total_recv_mb, "%.2fMB", total_recv / 1024);
+                sprintf(total_recv_s, "%.2fMB", total_recv / 1024);
             }
             if (recv_avg_speed > 1024)
             {
-                sprintf(recv_avg_speed_kb, "%.1fMB/S", recv_avg_speed / 1024);
+                sprintf(recv_avg_speed_s, "%.1fMB/S", recv_avg_speed / 1024);
             }
             else
             {
-                sprintf(recv_avg_speed_kb, "%.1fKB/S", recv_avg_speed);
+                sprintf(recv_avg_speed_s, "%.1fKB/S", recv_avg_speed);
             }
             if (recv_speed > 1024)
             {
-                sprintf(recv_speed_kb, "%.1fMB/S", recv_speed / 1024);
+                sprintf(recv_speed_s, "%.1fMB/S", recv_speed / 1024);
             }
             else
             {
-                sprintf(recv_speed_kb, "%.1fKB/S", recv_speed);
+                sprintf(recv_speed_s, "%.1fKB/S", recv_speed);
             }
             if (total_trans > 1048576)
             {
-                sprintf(total_trans_mb, "%.2fGB", total_trans / 1024 / 1024);
+                sprintf(total_trans_s, "%.2fGB", total_trans / 1024 / 1024);
             }
             else
             {
-                sprintf(total_trans_mb, "%.2fMB", total_trans / 1024);
+                sprintf(total_trans_s, "%.2fMB", total_trans / 1024);
             }
             if (trans_avg_speed > 1024)
             {
-                sprintf(trans_avg_speed_kb, "%.1fMB/S", trans_avg_speed / 1024);
+                sprintf(trans_avg_speed_s, "%.1fMB/S", trans_avg_speed / 1024);
             }
             else
             {
-                sprintf(trans_avg_speed_kb, "%.1fKB/S", trans_avg_speed);
+                sprintf(trans_avg_speed_s, "%.1fKB/S", trans_avg_speed);
             }
             if (trans_speed > 1024)
             {
-                sprintf(trans_speed_kb, "%.1fMB/S", trans_speed / 1024);
+                sprintf(trans_speed_s, "%.1fMB/S", trans_speed / 1024);
             }
             else
             {
-                sprintf(trans_speed_kb, "%.1fKB/S", trans_speed);
+                sprintf(trans_speed_s, "%.1fKB/S", trans_speed);
             }
             char str_recv[1024];
             char str_trans[1024];
-            sprintf(str_recv, "%-11s %-11s %-11s", total_recv_mb, recv_avg_speed_kb, recv_speed_kb);
-            sprintf(str_trans, "%-11s %-11s %-11s", total_trans_mb, trans_avg_speed_kb, trans_speed_kb);
+            sprintf(str_recv, "%-11s %-11s %-11s", total_recv_s, recv_avg_speed_s, recv_speed_s);
+            sprintf(str_trans, "%-11s %-11s %-11s", total_trans_s, trans_avg_speed_s, trans_speed_s);
             char name_pad[1024];
             sprintf(name_pad, "%s%*s", temp->name, maxLen - (int)strlen(temp->name), "");
             printf("\e[1;34m%s\e[00m  接收: \e[1;32m%s\e[00m 发送: \e[1;31m%s\e[00m\n", name_pad, str_recv, str_trans);

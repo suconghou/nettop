@@ -42,8 +42,8 @@ proc main() =
         for name,item in netItemsCurrent:
             let lastItem = netItemsLast.getOrDefault(name,empty)
             let initItem = netItemsInit.getOrDefault(name,empty)
-            var total_recv  :float
-            var total_trans  :float
+            var total_recv:float
+            var total_trans:float
             var recv:float
             var trans:float
             var recv_speed:float
@@ -67,15 +67,15 @@ proc main() =
                 trans_avg_speed = total_trans/tt
 
 
-            let total_recv_mb = if total_recv > 1048576 : fmt"{total_recv/1024/1024:.2f}GB" else: fmt"{total_recv/1024:.2f}MB"
-            let recv_avg_speed_kb = if recv_avg_speed > 1024: fmt"{recv_avg_speed/1024:.1f}MB/S" else: fmt"{recv_avg_speed:.1f}KB/S"
-            let recv_speed_kb = if recv_speed > 1024: fmt"{recv_speed/1024:.1f}MB/S" else: fmt"{recv_speed:.1f}KB/S"
-            let total_trans_mb = if total_trans > 1048576: fmt"{total_trans/1024/1024:.2f}GB" else: fmt"{total_trans/1024:.2f}MB"
-            let trans_avg_speed_kb = if trans_avg_speed > 1024: fmt"{trans_avg_speed/1024:.1f}MB/S" else: fmt"{trans_avg_speed:.1f}KB/S"
-            let trans_speed_kb = if trans_speed > 1024: fmt"{trans_speed/1024:.1f}MB/S" else: fmt"{trans_speed:.1f}KB/S"
+            let total_recv_s = if total_recv > 1048576 : fmt"{total_recv/1024/1024:.2f}GB" else: fmt"{total_recv/1024:.2f}MB"
+            let recv_avg_speed_s = if recv_avg_speed > 1024: fmt"{recv_avg_speed/1024:.1f}MB/S" else: fmt"{recv_avg_speed:.1f}KB/S"
+            let recv_speed_s = if recv_speed > 1024: fmt"{recv_speed/1024:.1f}MB/S" else: fmt"{recv_speed:.1f}KB/S"
+            let total_trans_s = if total_trans > 1048576: fmt"{total_trans/1024/1024:.2f}GB" else: fmt"{total_trans/1024:.2f}MB"
+            let trans_avg_speed_s = if trans_avg_speed > 1024: fmt"{trans_avg_speed/1024:.1f}MB/S" else: fmt"{trans_avg_speed:.1f}KB/S"
+            let trans_speed_s = if trans_speed > 1024: fmt"{trans_speed/1024:.1f}MB/S" else: fmt"{trans_speed:.1f}KB/S"
 
-            let str_recv = fmt"{total_recv_mb:<11} {recv_avg_speed_kb:<11} {recv_speed_kb:<11}"
-            let str_trans = fmt"{total_trans_mb:<11} {trans_avg_speed_kb:<11} {trans_speed_kb:<11}"
+            let str_recv = fmt"{total_recv_s:<11} {recv_avg_speed_s:<11} {recv_speed_s:<11}"
+            let str_trans = fmt"{total_trans_s:<11} {trans_avg_speed_s:<11} {trans_speed_s:<11}"
             let name_pad = name.alignLeft(maxLen)
             echo &"\e[1;34m{name_pad}\e[00m  接收: \e[1;32m{str_recv}\e[00m 发送: \e[1;31m{str_trans}\e[00m"
 

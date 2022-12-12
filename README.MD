@@ -38,6 +38,13 @@ nim --mm:regions -d:release --passC:-flto --passL:-flto --passL:-s --passL:-stat
 gcc -static-libstdc++ -static-libgcc --static -Wl,-Bstatic,--gc-sections -Os -ffunction-sections -fdata-sections main.c -o nettop
 ```
 
+### c++ 版本
+
+
+```
+g++ -std=c++20 -static-libstdc++ -static-libgcc --static -Wl,-Bstatic,--gc-sections -Os -ffunction-sections -fdata-sections main.cpp -o nettop
+```
+
 
 
 
