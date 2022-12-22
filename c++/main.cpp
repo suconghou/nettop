@@ -21,27 +21,11 @@ map<string, netItem> curr_items;
 map<string, netItem> last_items;
 map<string, netItem> init_items;
 int maxLen;
-// trim from start (in place)
-static inline void ltrim(string &s)
-{
-    s.erase(s.begin(), find_if(s.begin(), s.end(), [](unsigned char ch)
-                               { return !isspace(ch); }));
-}
-
-// trim from end (in place)
-static inline void rtrim(string &s)
-{
-    s.erase(find_if(s.rbegin(), s.rend(), [](unsigned char ch)
-                    { return !isspace(ch); })
-                .base(),
-            s.end());
-}
 
 // trim from both ends (in place)
-static inline void trim(string &s)
+void trim(string &s)
 {
-    rtrim(s);
-    ltrim(s);
+    s.erase(remove(s.begin(), s.end(), ' '), s.end());
 }
 
 // 按照字符切割字符串，多个连续字符跳过
@@ -62,7 +46,7 @@ static inline int explode(string str, const char split, vector<string> &res)
     return count;
 }
 
-int readInfo(const string &filename = "/tmp/1")
+int readInfo(const string &filename = "/proc/net/dev")
 {
     // ifstream是输入文件流（input file stream）的简称, std::ifstream
     // 离开作用域后，fh文件将被析构器自动关闭
