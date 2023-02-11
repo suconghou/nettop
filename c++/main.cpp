@@ -29,7 +29,7 @@ void trim(string &s)
 }
 
 // 按照字符切割字符串，多个连续字符跳过
-static inline int explode(string str, const char split, vector<string> &res)
+static inline int explode(string &str, const char split, vector<string> &res)
 {
     istringstream iss(str);
     string token;
