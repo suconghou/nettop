@@ -1,4 +1,4 @@
-import strutils,strformat,tables,os,times
+import strutils, strformat, tables, os, times
 
 
 type netItem = object
@@ -7,26 +7,26 @@ type netItem = object
     trans_bytes: int
 
 
-proc readInfo(filename = "/proc/net/dev") : Table[string, netItem]= 
-    var netItems : Table[string, netItem];
+proc readInfo(filename = "/proc/net/dev"): Table[string, netItem] =
+    var netItems: Table[string, netItem];
     for line in filename.lines:
-        let arr=line.split(":")
-        if len(arr) != 2 :
+        let arr = line.split(":")
+        if len(arr) != 2:
             continue;
         let parts = arr[1].splitWhitespace()
-        if len(parts)!=16:
+        if len(parts) != 16:
             continue;
         let name = arr[0].strip()
-        netItems[name]=netItem(name:name,recv_bytes:parts[0].parseInt,trans_bytes:parts[8].parseInt)
+        netItems[name] = netItem(name: name, recv_bytes: parts[0].parseInt, trans_bytes: parts[8].parseInt)
     return netItems;
 
-proc main() = 
+proc main() =
 
-    var netItemsLast : Table[string, netItem];
-    var netItemsInit : Table[string, netItem];
-    var init_clock:DateTime = now();
-    var last_clock:DateTime = init_clock;
-    var maxLen :int = 0;
+    var netItemsLast: Table[string, netItem];
+    var netItemsInit: Table[string, netItem];
+    var init_clock: DateTime = now();
+    var last_clock: DateTime = init_clock;
+    var maxLen: int = 0;
     var empty = netItem();
 
     while true:
@@ -38,18 +38,18 @@ proc main() =
             for ifname in netItemsCurrent.keys:
                 if maxLen < ifname.len:
                     maxLen = ifname.len
-        write(stdout,"\ec")
-        for name,item in netItemsCurrent:
-            let lastItem = netItemsLast.getOrDefault(name,empty)
-            let initItem = netItemsInit.getOrDefault(name,empty)
-            var total_recv:float
-            var total_trans:float
-            var recv:float
-            var trans:float
-            var recv_speed:float
-            var trans_speed:float
-            var recv_avg_speed:float
-            var trans_avg_speed:float
+        write(stdout, "\ec")
+        for name, item in netItemsCurrent:
+            let lastItem = netItemsLast.getOrDefault(name, empty)
+            let initItem = netItemsInit.getOrDefault(name, empty)
+            var total_recv: float
+            var total_trans: float
+            var recv: float
+            var trans: float
+            var recv_speed: float
+            var trans_speed: float
+            var recv_avg_speed: float
+            var trans_avg_speed: float
 
             let first = lastItem.name.isEmptyOrWhitespace or initItem.name.isEmptyOrWhitespace
             if not first:
@@ -67,7 +67,7 @@ proc main() =
                 trans_avg_speed = total_trans/tt
 
 
-            let total_recv_s = if total_recv > 1048576 : fmt"{total_recv/1024/1024:.2f}GB" else: fmt"{total_recv/1024:.2f}MB"
+            let total_recv_s = if total_recv > 1048576: fmt"{total_recv/1024/1024:.2f}GB" else: fmt"{total_recv/1024:.2f}MB"
             let recv_avg_speed_s = if recv_avg_speed > 1024: fmt"{recv_avg_speed/1024:.1f}MB/S" else: fmt"{recv_avg_speed:.1f}KB/S"
             let recv_speed_s = if recv_speed > 1024: fmt"{recv_speed/1024:.1f}MB/S" else: fmt"{recv_speed:.1f}KB/S"
             let total_trans_s = if total_trans > 1048576: fmt"{total_trans/1024/1024:.2f}GB" else: fmt"{total_trans/1024:.2f}MB"
@@ -86,7 +86,7 @@ proc main() =
             sleep(200)
         else:
             sleep(1000)
-    
+
 
 try:
     proc ctrlc() {.noconv.} =
