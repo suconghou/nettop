@@ -93,5 +93,5 @@ try:
         quit(0)
     setControlCHook(ctrlc)
     main()
-except:
+except CatchableError:
     echo getCurrentExceptionMsg()
