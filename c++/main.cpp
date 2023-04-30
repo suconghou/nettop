@@ -108,7 +108,7 @@ int main()
         if (readInfo() < 0)
         {
             perror("");
-            exit(-1);
+            return 1;
         }
         printf("\ec");
         for (const auto &item : curr_items)

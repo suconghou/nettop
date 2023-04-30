@@ -159,7 +159,7 @@ int main()
         if (readInfo() < 0)
         {
             perror("");
-            exit(-1);
+            return 1;
         }
         netItem *temp = &curr_items;
         printf("\ec");
